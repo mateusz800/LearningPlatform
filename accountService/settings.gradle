@@ -1,0 +1,3 @@
+rootProject.name = 'accountService'
+include 'com.example'
+
