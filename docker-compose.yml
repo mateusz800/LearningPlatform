@@ -1,0 +1,17 @@
+version: '3.8'
+
+services: 
+  api_gateway:
+    container_name: lp_api_gateway
+    build: 
+      context: ./apiGateway
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+  account_service:
+    container_name: lp_account_service
+    build:
+      context: ./accountService
+      dockerfile: Dockerfile
+    ports:
+      - 8125:8080
