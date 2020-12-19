@@ -1,0 +1,24 @@
+= My REST API
+:author: Mateusz Budnik
+:email: mat.budnik@outlook.com
+:revnumber: v0.1
+:source-highlighter: highlightjs
+:highlightjs-theme: github
+:toc: left
+:toclevels: 2
+:sectlinks:
+:sectnums:
+
+[introduction]
+== Introduction
+This service is responsible for all operations related to user accounts.
+It also acts as an authorization server.
+
+== Functions
+
+=== Test
+==== Sample request
+include::{snippets}/test/http-request.adoc[]
+
+==== Sample response
+include::{snippets}/test/http-response.adoc[]

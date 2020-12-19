@@ -1,3 +1,4 @@
 rootProject.name = 'accountService'
 include 'com.example'
+include 'com.example'
 
