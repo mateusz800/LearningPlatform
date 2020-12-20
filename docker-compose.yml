@@ -8,6 +8,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8081:8080
+  service_discovery:
+    container_name: lp_service_discovery
+    build:
+      context: ./serviceDiscovery
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
   account_service:
     container_name: lp_account_service
     build:
