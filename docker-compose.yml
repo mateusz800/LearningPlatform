@@ -1,6 +1,16 @@
 version: '3.8'
 
-services: 
+services:
+  service-discovery:
+    container_name: lp_service_discovery
+    build:
+      context: ./serviceDiscovery
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    networks:
+      - spring-cloud-network
+
   api_gateway:
     container_name: lp_api_gateway
     build: 
@@ -8,17 +18,27 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8081:8080
-  service_discovery:
-    container_name: lp_service_discovery
-    build:
-      context: ./serviceDiscovery
-      dockerfile: Dockerfile
-    ports:
-      - 8761:8761
+    depends_on:
+      - service-discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
+    networks:
+      - spring-cloud-network
+
   account_service:
     container_name: lp_account_service
     build:
       context: ./accountService
       dockerfile: Dockerfile
+    depends_on:
+      - service-discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
     ports:
       - 8125:8080
+    networks:
+      - "spring-cloud-network"
+
+networks:
+  spring-cloud-network:
+    driver: bridge
