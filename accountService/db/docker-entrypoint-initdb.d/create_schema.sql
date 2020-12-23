@@ -1,0 +1,13 @@
+CREATE DATABASE accounts;
+
+\connect accounts
+
+BEGIN;
+DROP SCHEMA IF EXISTS accounts CASCADE;
+CREATE SCHEMA IF NOT EXISTS accounts;
+
+CREATE TABLE IF NOT EXISTS accounts.user {
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    password TEXT NOT NULL
+};

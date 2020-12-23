@@ -11,7 +11,7 @@ services:
     networks:
       - spring-cloud-network
 
-  api_gateway:
+  api-gateway:
     container_name: lp_api_gateway
     build: 
       context: ./apiGateway
@@ -25,15 +25,31 @@ services:
     networks:
       - spring-cloud-network
 
-  account_service:
+  account-db:
+    container_name: lp_account_db
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bVhDX2XcgwEatQ6djUNKLm786wguSjpm
+    ports:
+      - 5433:5432
+
+  account-service:
     container_name: lp_account_service
     build:
       context: ./accountService
       dockerfile: Dockerfile
     depends_on:
       - service-discovery
+      - account-db
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://account-db:5432/accounts
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=bVhDX2XcgwEatQ6djUNKLm786wguSjpm
     ports:
       - 8125:8080
     networks:

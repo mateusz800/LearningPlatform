@@ -1,16 +1,32 @@
 package com.example.controller;
 
+import com.example.dto.CreateUserDto;
+import com.example.exception.UserAlreadyExistsException;
+import com.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+//@RequestMapping("/auth")
 public class AuthController {
-    @GetMapping(path = "/test")
-    public ResponseEntity<?> test(){
-        return new ResponseEntity<>("Hello World", HttpStatus.OK);
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping(path = "/user")
+    public ResponseEntity<?> createAccount(@RequestBody CreateUserDto userData) {
+        try {
+            userService.createUser(userData);
+        } catch (UserAlreadyExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Successful account creation ", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "test")
+    public ResponseEntity<?> test() {
+        return new ResponseEntity<>("Hello world", HttpStatus.OK);
     }
 }

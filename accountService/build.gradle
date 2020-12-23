@@ -24,10 +24,17 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    // eureka (service discovery) client
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    // authentication, security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt:0.9.0'
+    // database
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2'
     // documentation
     implementation 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-    implementation "org.asciidoctor:asciidoctor-gradle-plugin:1.5.3"
+    implementation 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 ext {
