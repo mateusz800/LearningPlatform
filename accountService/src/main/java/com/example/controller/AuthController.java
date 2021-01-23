@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @RestController
-//@RequestMapping("/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class AuthController {
         return new ResponseEntity<>("Successful account creation ", HttpStatus.OK);
     }
 
-    @GetMapping(path = "test")
+    @GetMapping(path = "/test")
     public ResponseEntity<?> test() {
         return new ResponseEntity<>("Hello world", HttpStatus.OK);
     }
